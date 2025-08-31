@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đếm Ngược Sinh Nhật Vân Anh - Ariel 🎂</title>
+    <link rel="stylesheet" href="countdown-style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Bầu trời với mây -->
+    <div class="sky">
+        <div class="cloud cloud1"></div>
+        <div class="cloud cloud2"></div>
+        <div class="cloud cloud3"></div>
+        <div class="sun"></div>
+    </div>
+    
+    <!-- Biển với sóng -->
+    <div class="ocean">
+        <div class="wave wave1"></div>
+        <div class="wave wave2"></div>
+        <div class="wave wave3"></div>
+        <div class="wave wave4"></div>
+    </div>
+    
+    <!-- Cát bãi biển -->
+    <div class="beach"></div>
+    
+    <!-- Nội dung chính -->
+    <div class="content">
+        <div class="countdown-container">
+            <h1>🎂 Sinh Nhật Vân Anh</h1>
+            <p class="subtitle">Ariel / Mẫn Mẫn</p>
+            
+            <div class="countdown-timer">
+                <div class="countdown-item">
+                    <span class="number" id="days">00</span>
+                    <span class="label">Ngày</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="number" id="hours">00</span>
+                    <span class="label">Giờ</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="number" id="minutes">00</span>
+                    <span class="label">Phút</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="number" id="seconds">00</span>
+                    <span class="label">Giây</span>
+                </div>
+            </div>
+            
+            <div class="message">
+                <p>Hãy đợi đến đúng 00:00 ngày 6/9/2025 để khám phá những điều bí mật đang chờ đợi cậu nhé! 🌊✨</p>
+                <p class="quote">"Mọi điều tốt đẹp đều cần thời gian để hoàn hảo..." 💙</p>
+            </div>
+            
+            <div class="floating-elements">
+                <div class="floating-item" style="--delay: 0s">🐚</div>
+                <div class="floating-item" style="--delay: 2s">⭐</div>
+                <div class="floating-item" style="--delay: 4s">🐠</div>
+                <div class="floating-item" style="--delay: 6s">🌊</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Nút chuyển trang (chỉ hiện khi đến sinh nhật) -->
+    <div class="birthday-button" id="birthday-button" style="display: none;">
+        <a href="birthday.html" class="btn">🎉 Chúc Mừng Sinh Nhật! 🎉</a>
+    </div>
+    
+    <script src="countdown-script.js"></script>
+</body>
+</html>
