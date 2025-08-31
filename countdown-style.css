@@ -288,58 +288,55 @@ h1 {
     box-shadow: 0 15px 40px rgba(255, 215, 0, 0.6);
 }
 
-/* Responsive */
+/* Cho Tablet và điện thoại màn hình lớn (chiều rộng dưới 768px) */
 @media (max-width: 768px) {
-    h1 { font-size: 2.5rem; }
-    .subtitle { font-size: 1.2rem; }
-    .countdown-timer { gap: 20px; }
-    .countdown-item { min-width: 100px; }
-    .number { font-size: 3rem; }
-    .label { font-size: 1rem; }
-    .countdown-container { padding: 30px 20px; }
-    .message p { font-size: 1.1rem; }
-}
-
-/* --- BẮT ĐẦU THAY THẾ TỪ ĐÂY --- */
-@media (max-width: 480px) {
-    h1 { font-size: 2rem; }
-    .subtitle { font-size: 1.1rem; }
-
     .countdown-container {
-        padding: 20px 10px; /* Giảm padding */
-        width: 95vw; /* Chiếm 95% chiều rộng màn hình */
+        padding: 30px 20px; /* Giảm padding một chút */
+        width: 90%;         /* Giới hạn chiều rộng của khung */
     }
 
-    /* ĐÂY LÀ PHẦN THAY ĐỔI QUAN TRỌNG NHẤT */
+    h1 { font-size: 2.5rem; }
+    .subtitle { font-size: 1.2rem; }
+    
+    /* Chuyển sang dùng Grid Layout để kiểm soát cột tốt hơn */
     .countdown-timer {
-        display: grid; /* Chuyển sang dùng Grid */
-        grid-template-columns: repeat(4, 1fr); /* Tạo 4 cột bằng nhau */
-        gap: 8px; /* Giảm khoảng cách cột */
-        margin: 25px 0;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr); /* Luôn tạo 4 cột bằng nhau */
+        gap: 15px; /* Giảm khoảng cách giữa các cột */
     }
 
     .countdown-item {
-        /* Không cần min-width hay flex nữa */
-        text-align: center;
+        min-width: 0; /* Bỏ min-width để cho phép item co lại */
+    }
+
+    .number { font-size: 2.8rem; }
+    .label { font-size: 0.9rem; }
+    .message p { font-size: 1.1rem; }
+}
+
+
+/* Cho điện thoại màn hình nhỏ (chiều rộng dưới 480px) */
+@media (max-width: 480px) {
+    .countdown-container {
+        padding: 25px 10px; /* Giảm padding nhiều hơn */
+        width: 95%;         /* Cho phép khung rộng hơn một chút so với màn hình */
+    }
+
+    h1 { font-size: 2rem; }
+    .subtitle { font-size: 1.1rem; }
+
+    .countdown-timer {
+        gap: 10px; /* Giảm khoảng cách cột nhiều hơn nữa */
     }
 
     .number {
-        font-size: 2rem; /* Giảm kích thước số để chắc chắn vừa */
-        line-height: 1.1; /* Giảm chiều cao dòng */
+        font-size: 2rem; /* Giảm cỡ chữ số để vừa màn hình hẹp */
     }
 
     .label {
-        font-size: 0.75rem; /* Giảm kích thước nhãn */
+        font-size: 0.8rem; /* Giảm cỡ chữ nhãn */
         letter-spacing: 1px;
-        margin-top: 5px;
     }
 
-    .message {
-        margin: 20px 0;
-    }
-    
-    .message p {
-        font-size: 0.95rem;
-    }
+    .message p { font-size: 1rem; }
 }
-/* --- KẾT THÚC THAY THẾ Ở ĐÂY --- */
