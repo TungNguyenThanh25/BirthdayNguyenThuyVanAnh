@@ -326,4 +326,259 @@ document.addEventListener('DOMContentLoaded', function() {
     crystals.forEach(crystal => {
         crystal.addEventListener('click', checkAllCrystalsLit);
     });
+
+    // --- PHOTO GALLERY FUNCTIONALITY ---
+    const photoItems = document.querySelectorAll('.photo-item');
+    const prevBtn = document.getElementById('prev-photo');
+    const nextBtn = document.getElementById('next-photo');
+    const indicators = document.querySelectorAll('.indicator');
+    let currentPhotoIndex = 0;
+
+    // Initialize gallery
+    function initGallery() {
+        if (photoItems.length === 0) return;
+        
+        // Show first photo prominently
+        updateGalleryDisplay();
+        
+        // Add click events to photos
+        photoItems.forEach((item, index) => {
+            item.addEventListener('click', () => {
+                showPhotoFullscreen(index);
+            });
+        });
+    }
+
+    // Update gallery display
+    function updateGalleryDisplay() {
+        photoItems.forEach((item, index) => {
+            if (index === currentPhotoIndex) {
+                item.style.transform = 'scale(1.05)';
+                item.style.zIndex = '10';
+            } else {
+                item.style.transform = 'scale(1)';
+                item.style.zIndex = '1';
+            }
+        });
+        
+        // Update indicators
+        indicators.forEach((indicator, index) => {
+            if (index === currentPhotoIndex) {
+                indicator.classList.add('active');
+            } else {
+                indicator.classList.remove('active');
+            }
+        });
+    }
+
+    // Navigation functions
+    function showNextPhoto() {
+        currentPhotoIndex = (currentPhotoIndex + 1) % photoItems.length;
+        updateGalleryDisplay();
+        smoothScrollToPhoto();
+    }
+
+    function showPrevPhoto() {
+        currentPhotoIndex = (currentPhotoIndex - 1 + photoItems.length) % photoItems.length;
+        updateGalleryDisplay();
+        smoothScrollToPhoto();
+    }
+
+    // Smooth scroll to current photo
+    function smoothScrollToPhoto() {
+        const currentPhoto = photoItems[currentPhotoIndex];
+        if (currentPhoto) {
+            currentPhoto.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        }
+    }
+
+    // Fullscreen photo view
+    function showPhotoFullscreen(index) {
+        const photo = photoItems[index];
+        const img = photo.querySelector('img');
+        const caption = photo.querySelector('.photo-caption').textContent;
+        
+        // Create fullscreen overlay
+        const overlay = document.createElement('div');
+        overlay.className = 'fullscreen-overlay';
+        overlay.innerHTML = `
+            <div class="fullscreen-content">
+                <img src="${img.src}" alt="${img.alt}">
+                <div class="fullscreen-caption">${caption}</div>
+                <button class="close-btn">×</button>
+            </div>
+        `;
+        
+        // Add styles
+        overlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 3000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease-out;
+        `;
+        
+        const content = overlay.querySelector('.fullscreen-content');
+        content.style.cssText = `
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            text-align: center;
+        `;
+        
+        const fullscreenImg = overlay.querySelector('img');
+        fullscreenImg.style.cssText = `
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        `;
+        
+        const fullscreenCaption = overlay.querySelector('.fullscreen-caption');
+        fullscreenCaption.style.cssText = `
+            color: white;
+            font-size: 1.5rem;
+            margin-top: 20px;
+            font-weight: 600;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        `;
+        
+        const closeBtn = overlay.querySelector('.close-btn');
+        closeBtn.style.cssText = `
+            position: absolute;
+            top: -50px;
+            right: 0;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 3rem;
+            cursor: pointer;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        `;
+        
+        // Add event listeners
+        closeBtn.addEventListener('click', () => {
+            overlay.style.animation = 'fadeOut 0.3s ease-out';
+            setTimeout(() => {
+                if (overlay.parentNode) {
+                    overlay.parentNode.removeChild(overlay);
+                }
+            }, 300);
+        });
+        
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                closeBtn.click();
+            }
+        });
+        
+        // Add to DOM
+        document.body.appendChild(overlay);
+        
+        // Add fullscreen animations
+        const fullscreenStyle = document.createElement('style');
+        fullscreenStyle.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+            @keyframes fadeOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+        `;
+        document.head.appendChild(fullscreenStyle);
+    }
+
+    // Add event listeners
+    if (prevBtn) prevBtn.addEventListener('click', showPrevPhoto);
+    if (nextBtn) nextBtn.addEventListener('click', showNextPhoto);
+    
+    // Indicator clicks
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+            currentPhotoIndex = index;
+            updateGalleryDisplay();
+            smoothScrollToPhoto();
+        });
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') {
+            showPrevPhoto();
+        } else if (e.key === 'ArrowRight') {
+            showNextPhoto();
+        } else if (e.key === 'Escape') {
+            const overlay = document.querySelector('.fullscreen-overlay');
+            if (overlay) {
+                overlay.querySelector('.close-btn').click();
+            }
+        }
+    });
+
+    // Auto-advance gallery
+    let autoAdvanceInterval;
+    function startAutoAdvance() {
+        autoAdvanceInterval = setInterval(showNextPhoto, 5000);
+    }
+    
+    function stopAutoAdvance() {
+        if (autoAdvanceInterval) {
+            clearInterval(autoAdvanceInterval);
+        }
+    }
+
+    // Start auto-advance when gallery is visible
+    const gallerySection = document.getElementById('gallery');
+    if (gallerySection) {
+        const galleryObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    startAutoAdvance();
+                } else {
+                    stopAutoAdvance();
+                }
+            });
+        }, { threshold: 0.3 });
+        
+        galleryObserver.observe(gallerySection);
+    }
+
+    // Initialize gallery
+    initGallery();
+
+    // Add photo entrance animations
+    photoItems.forEach((item, index) => {
+        item.style.animationDelay = `${index * 0.1}s`;
+        item.classList.add('photo-entrance');
+    });
+
+    // Add entrance animation CSS
+    const photoEntranceStyle = document.createElement('style');
+    photoEntranceStyle.textContent = `
+        .photo-entrance {
+            animation: photoEntrance 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(30px) scale(0.9);
+        }
+        
+        @keyframes photoEntrance {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+    `;
+    document.head.appendChild(photoEntranceStyle);
 });
