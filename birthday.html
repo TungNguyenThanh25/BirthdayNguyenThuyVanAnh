@@ -204,9 +204,30 @@
     </div>
     
     <audio id="background-music" loop>
-        <source src="https://www.youtube.com/watch?v=6lMo517PIzk&list=RD6lMo517PIzk&start_radio=1&ab_channel=Jaeguchi" type="audio/mpeg">
+        <source src="ytmp3free.cc_mot-doi-14-casper-bon-nghiem-feat-buitruonglinh-track-03-album-so-khong-youtubemp3free.org.mp3" type="audio/mpeg">
     </audio>
 
     <script src="birthday-script.js"></script>
 </body>
 </html>
+<script>
+    const audio = document.getElementById('background-music');
+
+    // Hàm để chạy nhạc, chỉ chạy một lần
+    function playMusicOnClick() {
+        audio.play()
+            .then(() => {
+                // Tự động phát thành công
+                console.log("Audio is playing.");
+                // Sau khi chạy thành công, gỡ bỏ sự kiện này đi để không chạy lại
+                document.removeEventListener('click', playMusicOnClick);
+            })
+            .catch(error => {
+                // Tự động phát bị lỗi (có thể do người dùng chưa tương tác)
+                console.log("Autoplay was prevented: ", error);
+            });
+    }
+
+    // Thêm sự kiện click vào toàn bộ trang
+    document.addEventListener('click', playMusicOnClick);
+</script>
