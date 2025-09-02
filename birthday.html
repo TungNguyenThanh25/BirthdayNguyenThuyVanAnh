@@ -162,16 +162,20 @@
             <p class="highlight-text">
                 <strong>Happy Birthday, Ariel! 🎉</strong>
             </p>
-            <p class="quote-text">
-                "Nếu một ngày nào đó, khi đã trưởng thành, trong tim cậu vẫn còn một khoảng trống, cho phép tớ được bước vào và thương cậu nhé." 💙
-            </p>
             <p>
-                "Cậu xứng đáng có được tất cả những điều tốt đẹp nhất trên đời này. Hãy luôn giữ nụ cười và trái tim ấm áp như bây giờ nhé!" 💙
+                "Cậu xứng đáng có được tất cả những điều tốt đẹp nhất trên đời này. Hãy luôn giữ nụ cười và trái tim ấm áp như bây giờ nhé!"
             </p>
-            <div class="signature">Một người đồng hành<br><strong>Nguyễn Thanh Tùng</strong></div>
+            <p class="quote-text">
+                "Nếu đến khi đã trưởng thành, trong tim cậu vẫn còn một chỗ trống, cho phép tớ được bước vào và thương cậu với nhé." 💙
+                <br>
+                "Nếu cậu đồng ý, hãy nhấn nút 'Đồng ý' bên dưới để tớ biết nhé!"
+                <br>
+                <!-- Nút "Đồng ý" -->
+                <button id="agreeButton" class="agree-button">Đồng ý 💌</button>
+            </p>
+            <div class="signature">Người đồng hành<br><strong>Nguyễn Thanh Tùng</strong></div>
 
 
-            <br>
             <br>
             <br>
             <br>
@@ -242,6 +246,17 @@
     </audio>
 
     <script src="birthday-script.js"></script>
+
+    <div id="custom-alert-overlay" class="custom-alert-overlay">
+        <div class="custom-alert-box">
+            <!-- Nút đóng 'X' -->
+            <button class="close-alert-btn">&times;</button>
+            <!-- Hộp thông báo màu vàng -->
+            <div class="alert-message">
+                Hãy nhắn cho mình "Ariel" để mình hiểu với nhé!
+            </div>
+        </div>
+    </div>
 </body>
 </html>
 <script>

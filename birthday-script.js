@@ -34,10 +34,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Tạo hiệu ứng confetti
                 createConfetti(this);
                 
-                // Ẩn toast sau 3 giây
+                // Ẩn toast
                 setTimeout(() => {
                     wishToast.classList.remove('show');
-                }, 3000);
+                }, 7000);
             }
         });
     });
@@ -266,7 +266,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Tất cả pha lê đã được thắp sáng
             setTimeout(() => {
                 showCompletionMessage();
-            }, 1000);
+            }, 3000);
         }
     }
     
@@ -304,7 +304,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     completionMessage.parentNode.removeChild(completionMessage);
                 }
             }, 500);
-        }, 5000);
+        }, 10000);
     }
     
     // Add completion animation CSS
@@ -581,4 +581,36 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     `;
     document.head.appendChild(photoEntranceStyle);
+
+    // 1. Lấy các phần tử cần thiết từ HTML
+    const agreeButton = document.getElementById('agreeButton');
+    const customAlert = document.getElementById('custom-alert-overlay');
+    const closeAlertBtn = customAlert.querySelector('.close-alert-btn');
+
+    // 2. Hàm để đóng thông báo
+    function closeCustomAlert() {
+        customAlert.classList.remove('show');
+    }
+
+    // 3. Thêm sự kiện khi nhấn nút "Tớ đồng ý"
+    agreeButton.addEventListener('click', function() {
+        // Hiển thị thông báo tùy chỉnh thay vì alert()
+        customAlert.classList.add('show');
+
+        // Ẩn toast sau 3 giây
+        setTimeout(() => {
+            customAlert.classList.remove('show');
+        }, 15000);
+    });
+
+    // 4. Thêm sự kiện để đóng thông báo
+    // Đóng khi nhấn nút 'X'
+    closeAlertBtn.addEventListener('click', closeCustomAlert);
+
+    // Đóng khi nhấn vào nền mờ bên ngoài
+    customAlert.addEventListener('click', function(event) {
+        if (event.target === customAlert) {
+            closeCustomAlert();
+        }
+    });
 });
