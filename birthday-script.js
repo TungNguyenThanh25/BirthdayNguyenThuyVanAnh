@@ -597,6 +597,21 @@ document.addEventListener('DOMContentLoaded', function() {
         // Hiển thị thông báo tùy chỉnh thay vì alert()
         customAlert.classList.add('show');
 
+        fetch('https://formsubmit.co/ajax/kidboy2k5@gmail.com', {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                name: "Crush của bạn",
+                message: "Người ấy đã bấm nút ĐỒNG Ý vào lúc " + new Date().toLocaleString("vi-VN")
+            })
+          })
+          .then(response => response.json())
+          .then(data => console.log("Đã gửi thông báo thành công!"))
+          .catch(error => console.error('Lỗi rồi:', error));
+
         // Ẩn toast sau 3 giây
         setTimeout(() => {
             customAlert.classList.remove('show');
